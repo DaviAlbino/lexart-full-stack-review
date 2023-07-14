@@ -1,0 +1,7 @@
+{
+    "parserOptions": {
+        "project": "front-end/Chat-bot-page/tsconfig.json",
+        "sourceType": "module"
+    },
+    "extends": "./node_modules/@trybe/eslint-config-frontend/typescript"
+}
