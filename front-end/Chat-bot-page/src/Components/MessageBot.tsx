@@ -1,11 +1,11 @@
 import { Box } from '@chakra-ui/react';
 
-function Input() {
+function MessageBot() {
   return (
     <Box>
-      Input
+      MessageBot
     </Box>
   );
 }
 
-export default Input;
+export default MessageBot;

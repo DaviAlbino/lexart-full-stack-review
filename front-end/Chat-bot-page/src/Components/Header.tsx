@@ -5,7 +5,6 @@ import {
   IconButton,
   Button,
   Stack,
-  Collapse,
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
@@ -51,7 +50,7 @@ export default function Header() {
             fontFamily="heading"
             color={ useColorModeValue('gray.800', 'white') }
           >
-            Logo
+            Lexart Chat Bot
           </Text>
 
           <Flex display={ { base: 'none', md: 'flex' } } ml={ 10 }>
@@ -65,15 +64,6 @@ export default function Header() {
           direction="row"
           spacing={ 6 }
         >
-          <Button
-            as="a"
-            fontSize="sm"
-            fontWeight={ 400 }
-            variant="link"
-            href="#"
-          >
-            Sign In
-          </Button>
           <Button
             as="a"
             display={ { base: 'none', md: 'inline-flex' } }
@@ -91,9 +81,6 @@ export default function Header() {
         </Stack>
       </Flex>
 
-      <Collapse in={ isOpen } animateOpacity>
-        <Box>Mobile? como assim?</Box>
-      </Collapse>
     </Box>
   );
 }
