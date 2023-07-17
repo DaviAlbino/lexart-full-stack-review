@@ -12,7 +12,7 @@ function Home() {
   };
 
   return (
-    <Box w={ 390 } h={ 844 } m="0 auto" border="4px solid gray">
+    <Box maxWidth={ 390 } height={ 844 } m="0 auto" border="4px solid gray">
       <Header />
       <Chatbot messages={ messages } />
       <InputMessage onSendMessage={ handleSendMessage } />

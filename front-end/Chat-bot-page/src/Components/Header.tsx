@@ -53,9 +53,6 @@ export default function Header() {
             Lexart Chat Bot
           </Text>
 
-          <Flex display={ { base: 'none', md: 'flex' } } ml={ 10 }>
-            <Box>O que é isso?</Box>
-          </Flex>
         </Flex>
 
         <Stack
