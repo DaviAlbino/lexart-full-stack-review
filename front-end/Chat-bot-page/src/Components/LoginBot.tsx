@@ -4,8 +4,8 @@ import ISendMessage from '../interfaces/ISendMessage';
 import { ChatContext } from '../contexts/ChatContext';
 
 interface ILoginBotProps {
-  username?: string | null;
-  password?: string | null;
+  username: string | 'username';
+  password: string | 'password';
   onSendMessage: (message: ISendMessage) => void;
 }
 
@@ -22,17 +22,16 @@ function LoginBot({ username, password, onSendMessage }: ILoginBotProps) {
     setInputPassword(event.target.value);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputUsername === username && inputPassword === password && setShowLogin) {
-      localStorage.setItem('username', JSON.stringify(username));
+      localStorage.setItem('username', username);
       setShowLogin(false);
-      const usernameStorage = JSON.parse(localStorage.getItem('username'));
       onSendMessage({ userId: 2, message: 'Successfully logged in!' });
       onSendMessage({
         userId: 2,
         // eslint-disable-next-line max-len
-        message: `Hello ${usernameStorage}, If you want loan options just send me the message 'loan'`,
+        message: `Hello ${username}, If you want loan options just send me the message 'loan'`,
       });
     } else {
       onSendMessage({ userId: 2, message: 'Invalid username or password!' });
