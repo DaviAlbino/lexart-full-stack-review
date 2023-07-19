@@ -6,7 +6,7 @@ dotenv.config();
 const connection = mysql.createPool({
   host: process.env.MYSQL_HOST || 'localhost',
   user: process.env.MYSQL_USER || 'chatbot_user',
-  password: process.env.MYSQL_PASSWORD || 'mypassword',
+  password: process.env.MYSQL_PASSWORD || 'chatbot_password',
   database: process.env.MYSQL_DATABASE || 'chatbot_db',
 });
 

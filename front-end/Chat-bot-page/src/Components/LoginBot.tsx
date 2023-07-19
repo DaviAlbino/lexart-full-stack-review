@@ -4,14 +4,14 @@ import ISendMessage from '../interfaces/ISendMessage';
 import { ChatContext } from '../contexts/ChatContext';
 
 interface ILoginBotProps {
-  username: string | null;
-  password: string | null;
+  username?: string | null;
+  password?: string | null;
   onSendMessage: (message: ISendMessage) => void;
 }
 
 function LoginBot({ username, password, onSendMessage }: ILoginBotProps) {
-  const [inputUsername, setInputUsername] = useState<string>('');
-  const [inputPassword, setInputPassword] = useState<string>('');
+  const [inputUsername, setInputUsername] = useState<string>(username || '');
+  const [inputPassword, setInputPassword] = useState<string>(password || '');
   const { setShowLogin } = useContext(ChatContext);
 
   const handleChangeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,9 +22,9 @@ function LoginBot({ username, password, onSendMessage }: ILoginBotProps) {
     setInputPassword(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (inputUsername === username && inputPassword === password) {
+    if (inputUsername === username && inputPassword === password && setShowLogin) {
       localStorage.setItem('username', JSON.stringify(username));
       setShowLogin(false);
       const usernameStorage = JSON.parse(localStorage.getItem('username'));
