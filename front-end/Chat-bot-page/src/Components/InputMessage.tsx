@@ -1,27 +1,32 @@
 import {
   Box,
   FormControl,
-  FormLabel,
   Input,
   Button,
   Text,
 } from '@chakra-ui/react';
-import { useState, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, ChangeEvent, KeyboardEvent, useContext } from 'react';
+import ISendMessage from '../interfaces/ISendMessage';
+import { ChatContext } from '../contexts/ChatContext';
 
-function InputMessage({ onSendMessage }: any) {
-  const [message, setMessage] = useState<string>('');
+interface IMessageBot {
+  onSendMessage: (messageSent: ISendMessage) => void
+}
+
+function InputMessage({ onSendMessage }: IMessageBot) {
+  const [message, setMessage] = useState<ISendMessage>({ userId: 1, message: '' });
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  const [isBotTyping, setIsBotTyping] = useState<boolean>(false);
+  const { setShowLogin } = useContext(ChatContext);
 
   const handleMessage = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setMessage(target.value);
+    setMessage({ userId: 1, message: target.value });
     setIsTyping(true);
   };
 
   const handleSend = () => {
     onSendMessage(message);
-    handleMessageResponse(message);
-    setMessage('');
+    handleMessageResponse(message.message);
+    setMessage({ userId: 1, message: '' });
     setIsTyping(false);
   };
 
@@ -33,44 +38,52 @@ function InputMessage({ onSendMessage }: any) {
 
   const handleMessageResponse = (messageBot: string) => {
     const lowercaseMessageBot = messageBot.toLowerCase();
-    const response1 = 'Hello user, welcome! Please Log in';
-    const response2 = 'Goodbye user, You can check this conversation on this link.';
-    const response3 = 'Ok user, but before we continue, Please Log in.';
-    const response4 = 'Good morning user! Please Log in.';
-
+    const response1 = { userId: 2, message: 'Hello user, welcome! Please Log in' };
+    const response2 = {
+      userId: 2,
+      message: 'Goodbye user, You can check this conversation on this link.',
+    };
+    const response3 = {
+      userId: 2,
+      message: 'Ok user, but before we continue, Please Log in.',
+    };
+    const response4 = {
+      userId: 2,
+      message: 'Good morning user! Please Log in!',
+    };
+    const response5 = {
+      userId: 2,
+      message: 'Great! This are the your loan options!',
+    };
     if (lowercaseMessageBot.includes('hello')) {
-      setIsBotTyping(true);
       setTimeout(() => {
         onSendMessage(response1);
       }, 3000);
-      setIsBotTyping(false);
     } else if (lowercaseMessageBot.includes('goodbye')) {
-      setIsBotTyping(true);
       setTimeout(() => {
         onSendMessage(response2);
+        setShowLogin(false);
       }, 3000);
-      setIsBotTyping(false);
     } else if (lowercaseMessageBot.includes('want')) {
-      setIsBotTyping(true);
       setTimeout(() => {
         onSendMessage(response3);
       }, 3000);
-      setIsBotTyping(false);
     } else if (lowercaseMessageBot.includes('good')) {
-      setIsBotTyping(true);
       setTimeout(() => {
         onSendMessage(response4);
       }, 3000);
-      setIsBotTyping(false);
+    } else if (lowercaseMessageBot.includes('loan')) {
+      setTimeout(() => {
+        onSendMessage(response5);
+      }, 3000);
     }
   };
   return (
     <Box>
       <FormControl>
         { isTyping && <Text>typing...</Text>}
-        { isBotTyping && <Text>bot is typing...</Text> }
         <Input
-          value={ message }
+          value={ message.message }
           onChange={ handleMessage }
           placeholder="type your message here"
           onKeyDown={ handlePressEnter }

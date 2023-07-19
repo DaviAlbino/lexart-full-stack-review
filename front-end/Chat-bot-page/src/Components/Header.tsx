@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <Box>
       <Flex
-        bg={ useColorModeValue('blue.100', 'gray.800') }
+        bg={ useColorModeValue('blue.500', 'gray.800') }
         color={ useColorModeValue('gray.600', 'white') }
         minH="60px"
         py={ { base: 2 } }
@@ -48,7 +48,7 @@ export default function Header() {
           <Text
             textAlign={ useBreakpointValue({ base: 'center', md: 'left' }) }
             fontFamily="heading"
-            color={ useColorModeValue('gray.800', 'white') }
+            color={ useColorModeValue('white', 'white') }
           >
             Lexart Chat Bot
           </Text>
