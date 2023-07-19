@@ -37,45 +37,50 @@ function InputMessage({ onSendMessage }: IMessageBot) {
   };
 
   const handleMessageResponse = (messageBot: string) => {
-    const lowercaseMessageBot = messageBot.toLowerCase();
-    const response1 = { userId: 2, message: 'Hello user, welcome! Please Log in' };
-    const response2 = {
-      userId: 2,
-      message: 'Goodbye user, You can check this conversation on this link.',
-    };
-    const response3 = {
-      userId: 2,
-      message: 'Ok user, but before we continue, Please Log in.',
-    };
-    const response4 = {
-      userId: 2,
-      message: 'Good morning user! Please Log in!',
-    };
-    const response5 = {
-      userId: 2,
-      message: 'Great! This are the your loan options!',
-    };
-    if (lowercaseMessageBot.includes('hello')) {
-      setTimeout(() => {
-        onSendMessage(response1);
-      }, 3000);
-    } else if (lowercaseMessageBot.includes('goodbye')) {
-      setTimeout(() => {
-        onSendMessage(response2);
-        setShowLogin(false);
-      }, 3000);
-    } else if (lowercaseMessageBot.includes('want')) {
-      setTimeout(() => {
-        onSendMessage(response3);
-      }, 3000);
-    } else if (lowercaseMessageBot.includes('good')) {
-      setTimeout(() => {
-        onSendMessage(response4);
-      }, 3000);
-    } else if (lowercaseMessageBot.includes('loan')) {
-      setTimeout(() => {
-        onSendMessage(response5);
-      }, 3000);
+    if (setShowLogin) {
+      const lowercaseMessageBot = messageBot.toLowerCase();
+      const response1 = { userId: 2, message: 'Hello user, welcome! Please Log in' };
+      const response2 = {
+        userId: 2,
+        message: 'Goodbye user, You can check this conversation on this link.',
+      };
+      const response3 = {
+        userId: 2,
+        message: 'Ok user, but before we continue, Please Log in.',
+      };
+      const response4 = {
+        userId: 2,
+        message: 'Good morning user! Please Log in!',
+      };
+      const response5 = {
+        userId: 2,
+        message: 'Great! This are your loan options!',
+      };
+      if (lowercaseMessageBot.includes('hello')) {
+        setTimeout(() => {
+          setShowLogin(true);
+          onSendMessage(response1);
+        }, 3000);
+      } else if (lowercaseMessageBot.includes('goodbye')) {
+        setTimeout(() => {
+          onSendMessage(response2);
+          setShowLogin(false);
+        }, 3000);
+      } else if (lowercaseMessageBot.includes('want')) {
+        setTimeout(() => {
+          setShowLogin(true);
+          onSendMessage(response3);
+        }, 3000);
+      } else if (lowercaseMessageBot.includes('good')) {
+        setTimeout(() => {
+          setShowLogin(true);
+          onSendMessage(response4);
+        }, 3000);
+      } else if (lowercaseMessageBot.includes('loan')) {
+        setTimeout(() => {
+          onSendMessage(response5);
+        }, 3000);
+      }
     }
   };
   return (

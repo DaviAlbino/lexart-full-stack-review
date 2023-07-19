@@ -5,7 +5,6 @@ import LoanOptions from './LoanOptions';
 import ISendMessage from '../interfaces/ISendMessage';
 import { ChatContext } from '../contexts/ChatContext';
 import LoanSolutions from './LoanSolutions';
-// import MessageBot from './MessageBot';
 
 interface ChatBotProps {
   messages: ISendMessage[]
@@ -13,7 +12,7 @@ interface ChatBotProps {
 }
 
 function Chatbot({ messages, onSendMessage }: ChatBotProps) {
-  const { showLogin, optionLink, optionMessage, showSolutions } = useContext(ChatContext);
+  const { showLogin, optionList } = useContext(ChatContext);
   const getCurrentDateTime = () => {
     const now = new Date();
     const formattedDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
@@ -24,7 +23,7 @@ function Chatbot({ messages, onSendMessage }: ChatBotProps) {
 
   return (
     <Box maxWidth={ 400 } height={ 640 } overflow="auto">
-      {messages.map((messageSent, index) => (
+      {optionList && messages.map((messageSent, index) => (
         <Box
           key={ index }
           textAlign={ messageSent.userId === 1 ? 'left' : 'right' }
@@ -56,10 +55,14 @@ function Chatbot({ messages, onSendMessage }: ChatBotProps) {
             password="123456"
             onSendMessage={ onSendMessage }
           />}
-          {messageSent.message === 'Great! This are the your loan options!'
+          {messageSent.message === 'Great! This are your loan options!'
           && <LoanOptions onSendMessage={ onSendMessage } />}
-          {messageSent.message === 'Ok! Great Choice!'
-          && <LoanSolutions optionLink={ optionLink } optionMessage={ optionMessage } />}
+          {messageSent.message === 'Ok! Great Choice to apply for a loan!'
+          && <LoanSolutions chosenOption={ optionList[0] } />}
+          {messageSent.message === 'Ok! Great choice for loan conditions!'
+          && <LoanSolutions chosenOption={ optionList[1] } />}
+          {messageSent.message === 'Ok! Great choice for help!'
+          && <LoanSolutions chosenOption={ optionList[2] } />}
         </Box>
       ))}
     </Box>

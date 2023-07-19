@@ -1,44 +1,35 @@
 import { createContext, useState } from 'react';
+import IOptionProp from '../interfaces/IOptionProp';
 
 interface IChatContext {
   showLogin?: boolean | undefined;
   setShowLogin?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
-  showSolutions?: boolean | undefined;
-  setShowSolutions?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
-  setOptionMessage?: React.Dispatch<React.SetStateAction<string>> | undefined;
-  setOptionLink?: React.Dispatch<React.SetStateAction<string>> | undefined;
-  optionMessage?: string | undefined;
-  optionLink?: string | undefined;
+  setOptionList?: React.Dispatch<React.SetStateAction<IOptionProp[]>>;
+  optionList?: IOptionProp[];
 }
 
 export const ChatContext = createContext<IChatContext>({
   showLogin: true,
   setShowLogin: () => {},
-  setOptionLink: () => {},
-  setOptionMessage: () => {},
-  setShowSolutions: () => {},
-  showSolutions: false,
-  optionMessage: '',
-  optionLink: '',
+  setOptionList: () => {},
+  optionList: [{
+    opId: 1,
+    opLink: '',
+    opMessage: '',
+  }],
 });
 
-export function ChatProvider({ children }) {
+export function ChatProvider({ children }: any) {
   const [showLogin, setShowLogin] = useState<boolean>(true);
-  const [showSolutions, setShowSolutions] = useState<boolean>(false);
-  const [optionLink, setOptionLink] = useState<string>('');
-  const [optionMessage, setOptionMessage] = useState<string>('');
+  const [optionList, setOptionList] = useState<IOptionProp[]>([]);
 
   return (
     <ChatContext.Provider
       value={ {
         showLogin,
         setShowLogin,
-        setOptionLink,
-        setOptionMessage,
-        optionLink,
-        optionMessage,
-        showSolutions,
-        setShowSolutions,
+        optionList,
+        setOptionList,
       } }
     >
       {children}

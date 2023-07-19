@@ -1,24 +1,26 @@
 import { Box, Link, Text } from '@chakra-ui/react';
-import { useContext } from 'react';
-import { ChatContext } from '../contexts/ChatContext';
+import IOptionProp from '../interfaces/IOptionProp';
 
 interface ILoanSolutionsProps {
-  optionMessage: string | undefined;
-  optionLink: string | undefined;
+  chosenOption: IOptionProp | undefined;
 }
 
-function LoanSolutions({ optionMessage, optionLink }: ILoanSolutionsProps) {
-  const { setShowSolutions } = useContext(ChatContext);
+function LoanSolutions({ chosenOption }: ILoanSolutionsProps) {
   return (
-    <Box p={ 4 } borderWidth="1px" borderRadius="md" backgroundColor="gray.100">
-      <Text fontWeight="bold" mb={ 2 }>{optionMessage}</Text>
+    <Box
+      p={ 4 }
+      borderWidth="1px"
+      borderRadius="md"
+      backgroundColor="gray.100"
+      key={ chosenOption?.opId }
+    >
+      <Text fontWeight="bold" mb={ 2 }>{chosenOption?.opMessage}</Text>
       <Link
-        href={ optionLink }
+        href={ chosenOption?.opLink }
         color="blue.500"
         isExternal
-        onClick={ () => setShowSolutions(false) }
       >
-        {optionLink}
+        {chosenOption?.opLink}
       </Link>
     </Box>
   );
